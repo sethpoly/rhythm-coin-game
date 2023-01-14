@@ -21,6 +21,7 @@ public class Coin : MonoBehaviour
     {
         beatTempo = gameManager.bpm / 60f;
         GameManager.OnBeat += OnBeat;
+        GameManager.OnStart += OnStart;
     }
 
     // Update is called once per frame
@@ -41,15 +42,15 @@ public class Coin : MonoBehaviour
         }
     }
 
-    private void OnBeat()
-    {
-        _beatCounter++;
-    }
-
-    public void StartTestMove()
+    private void OnStart()
     {
         hasStarted = true;
         _beatCounter = 0;
+    }
+
+    private void OnBeat()
+    {
+        _beatCounter++;
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -57,7 +58,6 @@ public class Coin : MonoBehaviour
         if(other.tag == "Player")
         {
             canBePressed = true;
-            Debug.Log("TRIGGER ENTER");
         }
     }
 
@@ -66,7 +66,6 @@ public class Coin : MonoBehaviour
         if(other.tag == "Player")
         {
             canBePressed = false;
-            Debug.Log("TRIGGER EXIT");
         }
     }
 

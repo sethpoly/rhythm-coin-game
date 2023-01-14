@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour
 
     // Delegate method and event that other scripts can subscribe to 
     public delegate void OnBeatAction();
+    public delegate void OnStartAction();
     public static event OnBeatAction OnBeat;
+    public static event OnStartAction OnStart;
+
 
     // Start is called before the first frame update
     void Start()
@@ -50,8 +53,9 @@ public class GameManager : MonoBehaviour
         }  
     }
 
-    public void PlayMusic()
+    public void StartSequence()
     {
         audioSource.Play();
+        if(OnStart != null) OnStart();
     }
 }

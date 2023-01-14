@@ -55,8 +55,7 @@ public class PlayerController : MonoBehaviour
     {
         if(!coin.hasStarted)
         {
-            coin.StartTestMove();
-            gameManager.PlayMusic();
+            gameManager.StartSequence();
         } else 
         {
             if (coin.canBePressed) 
@@ -67,9 +66,7 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Miss!");
             }
-            float yPos = coin.transform.position.y;
             coin.hasStarted = false;
-            Debug.Log(yPos);
         }
     }
 }
