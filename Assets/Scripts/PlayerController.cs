@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = new PlayerInput();
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,19 +62,14 @@ public class PlayerController : MonoBehaviour
             if (coin.canBePressed) 
             {
                 Debug.Log("Nice!");
+                coin.transform.position = new Vector3(coin.transform.position.x, 0, coin.transform.position.z);
             } else 
             {
                 Debug.Log("Miss!");
             }
-        }
-
-        // TODO: Remove these - not used
-        if(coin.IsSpinning()) 
-        {
-            coin.OnFlipEnd();
-        } else 
-        {
-            coin.OnFlipStart();
+            float yPos = coin.transform.position.y;
+            coin.hasStarted = false;
+            Debug.Log(yPos);
         }
     }
 }

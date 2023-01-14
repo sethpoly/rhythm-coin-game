@@ -11,12 +11,11 @@ public class Coin : MonoBehaviour
     public bool canBePressed;
 
     public int targetBeat;  // The beat to hit on
+    public int speedMultiplier; 
 
     [SerializeField] float spinSpeed;
-    public Timer timer;
-    [SerializeField] private bool isSpinning = false;
-    private bool shouldInterruptTween = false;
     private int _beatCounter = 0;
+
 
     void Start()
     {
@@ -29,7 +28,7 @@ public class Coin : MonoBehaviour
     {
         if(hasStarted) 
         {
-            Vector3 tempoMovement = new Vector3(0f, beatTempo * Time.deltaTime, 0f);
+            Vector3 tempoMovement = new Vector3(0f, (beatTempo * speedMultiplier) * Time.deltaTime, 0f);
             // If we reached half the target beat, start falling downwards
             if(_beatCounter < (targetBeat / 2) + 1) 
             {
@@ -40,10 +39,6 @@ public class Coin : MonoBehaviour
             }
             Spin();
         }
-
-        // if(IsSpinning()) {
-        //     Spin();
-        // }
     }
 
     private void OnBeat()
@@ -62,6 +57,7 @@ public class Coin : MonoBehaviour
         if(other.tag == "Player")
         {
             canBePressed = true;
+            Debug.Log("TRIGGER ENTER");
         }
     }
 
@@ -70,65 +66,7 @@ public class Coin : MonoBehaviour
         if(other.tag == "Player")
         {
             canBePressed = false;
-        }
-    }
-
-    public bool IsSpinning() {
-        return isSpinning;
-    }
-
-    public void OnFlipStart()
-    {
-        return;
-        if(isSpinning) { return; }
-        isSpinning = true;
-        shouldInterruptTween = false;
-
-        // Start position of flip
-        Vector3 startPosition = transform.position;
-        // Vector3 at apex of coin travel
-        Vector3 peakPosition = new Vector3(transform.position.x, transform.position.y + 40, transform.position.z);
-        // Vector3 for when user misses coin
-        Vector3 missPosition = new Vector3(transform.position.x, startPosition.y - 40, transform.position.z);
-
-        timer.StartTimer(until: 5);
-        StartCoroutine(InterruptableTweeng(1.5f,(p) => transform.position=p, startPosition, peakPosition, () => {
-            Debug.Log("Coin is at the top, coming back down!");
-            if(!isSpinning) { return; }
-
-            // Coin reached peak, fall back down
-            StartCoroutine(InterruptableTweeng(1.5f,(p) => transform.position=p,
-                transform.position, startPosition, () => {
-                    Debug.Log("Coin is at the start position");
-                    
-                    // Continue falling if player hasn't attempted a catch
-                    if(!isSpinning) { return; }
-                    StartCoroutine(InterruptableTweeng(1.5f, (p) => transform.position=p, transform.position, missPosition, () => {
-                        Debug.Log("Coin was completely missed!");
-                    }));
-                }));
-        }));
-    }
-
-    public void OnFlipEnd() 
-    {
-        return;
-        if(!isSpinning) { return; }
-        Debug.Log("OnFlipEnd");
-        isSpinning = false;
-        shouldInterruptTween = true;
-        timer.StopTimer();
-        decimal currentTime = Decimal.Round(((decimal)timer.GetCurrentTime()), 2);
-        decimal correctTime = 3.00m;
-
-        if(currentTime < correctTime) {
-            Debug.Log("EARLY");
-        }
-        if(currentTime > correctTime) {
-            Debug.Log("LATE");
-        }
-        if(currentTime == correctTime) {
-            Debug.Log("PERFECT");
+            Debug.Log("TRIGGER EXIT");
         }
     }
 
@@ -136,31 +74,4 @@ public class Coin : MonoBehaviour
     {
         transform.Rotate(spinSpeed * Time.deltaTime, 0, 0);
     }
-
-    private IEnumerator InterruptableTweeng(
-        float duration,
-        System.Action<Vector3> var,
-        Vector3 startPos,
-        Vector3 endPos,
-        System.Action onCompletion) 
-        {
-        float sT = Time.time;
-        float eT = sT + duration;
-        
-        while (Time.time < eT && !shouldInterruptTween)
-        {
-            float t = (Time.time-sT)/duration;
-            var( Vector3.Lerp(startPos, endPos, t ) );
-            yield return null;
-        }
-        
-        // If not force interrupting, move Vector3 to end pos
-        if(!shouldInterruptTween) 
-        {
-            var(endPos);
-        }
-
-        // Invoke completion callback
-        if(onCompletion != null) { onCompletion(); }
-        }
 }

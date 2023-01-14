@@ -837,7 +837,6 @@ MonoBehaviour:
   audioSource: {fileID: 1959905624}
   music: {fileID: 8300000, guid: 08d7c8854f97fd54ab7e1859aa495cf2, type: 3}
   bpm: 60
-  startPlaying: 0
 --- !u!4 &1364967018
 Transform:
   m_ObjectHideFlags: 0
@@ -980,7 +979,6 @@ GameObject:
   - component: {fileID: 1860457153}
   - component: {fileID: 1860457154}
   - component: {fileID: 1860457155}
-  - component: {fileID: 1860457156}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1037,7 +1035,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.29, y: 0}
+  m_Offset: {x: -1.29, y: -0.15}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1048,29 +1046,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.33}
+  m_Size: {x: 1, y: 1.25}
   m_EdgeRadius: 0
---- !u!50 &1860457156
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860457152}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &1959905623
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1187,7 @@ GameObject:
   - component: {fileID: 2006661928}
   - component: {fileID: 2006661929}
   - component: {fileID: 2006661930}
+  - component: {fileID: 2006661931}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -1249,9 +1227,8 @@ MonoBehaviour:
   hasStarted: 0
   canBePressed: 0
   targetBeat: 4
+  speedMultiplier: 30
   spinSpeed: 500
-  timer: {fileID: 865463835}
-  isSpinning: 0
 --- !u!58 &2006661930
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1268,6 +1245,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!50 &2006661931
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006661927}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!1 &2026907776
 GameObject:
   m_ObjectHideFlags: 0
