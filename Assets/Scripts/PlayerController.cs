@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = new PlayerInput();
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,15 +66,6 @@ public class PlayerController : MonoBehaviour
             {
                 Debug.Log("Miss!");
             }
-        }
-
-        // TODO: Remove these - not used
-        if(coin.IsSpinning()) 
-        {
-            coin.OnFlipEnd();
-        } else 
-        {
-            coin.OnFlipStart();
         }
     }
 }

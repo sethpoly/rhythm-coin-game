@@ -12,8 +12,6 @@ public class GameManager : MonoBehaviour
     private float _samplesPerBeat;
     private int _beatCount;
 
-    public bool startPlaying;
-
     // Delegate method and event that other scripts can subscribe to 
     public delegate void OnBeatAction();
     public static event OnBeatAction OnBeat;
