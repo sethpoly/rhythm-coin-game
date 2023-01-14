@@ -62,10 +62,14 @@ public class PlayerController : MonoBehaviour
             if (coin.canBePressed) 
             {
                 Debug.Log("Nice!");
+                coin.transform.position = new Vector3(coin.transform.position.x, 0, coin.transform.position.z);
             } else 
             {
                 Debug.Log("Miss!");
             }
+            float yPos = coin.transform.position.y;
+            coin.hasStarted = false;
+            Debug.Log(yPos);
         }
     }
 }

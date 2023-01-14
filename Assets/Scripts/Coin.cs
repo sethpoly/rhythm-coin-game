@@ -14,9 +14,6 @@ public class Coin : MonoBehaviour
     public int speedMultiplier; 
 
     [SerializeField] float spinSpeed;
-    public Timer timer;
-    [SerializeField] private bool isSpinning = false;
-    private bool shouldInterruptTween = false;
     private int _beatCounter = 0;
 
 
